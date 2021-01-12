@@ -1,25 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { AppRouter } from './router/router';
+import { useGlobalContext } from './context';
+import { useEffect } from 'react';
 
 function App() {
+  const { setUserInfo } = useGlobalContext();
+  useEffect( () => {
+    if(localStorage.getItem('userInfo')) {
+      setUserInfo(JSON.parse(localStorage.getItem('userInfo')));
+    }
+  }, [])
+  
+  // if (!isLoggedIn) {
+  //   return (
+  //     <div >
+  //       <Login />
+  //     </div>
+  //   );
+  // }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <AppRouter />
+    </>
+  )
+
 }
 
 export default App;
